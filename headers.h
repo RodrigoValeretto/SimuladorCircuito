@@ -5,8 +5,8 @@ typedef struct no
 	char nome[4];
 }Tipo_No;
 
-Tipo_No * buscano(char *,Tipo_No *);
+void buscano(char *,Tipo_No **);
 
 Tipo_No * criano();
 
-int conectno(Tipo_No *,Tipo_No *, int);
+int conectno(Tipo_No **, int);

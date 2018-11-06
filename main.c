@@ -10,14 +10,15 @@ int main()
 	Tipo_No * no;
 
 	no = criano();
-	Tipo_No *Raiz = no;
+	Tipo_No **Raiz = (Tipo_No**)calloc(1,sizeof(Tipo_No*));
+	*Raiz = no;
 	
 	scanf("%d",&conexao);
 	scanf("%d",&linhas);
 
 	switch(conexao)
 	{
-		case 0: break;
+		case 0: conectno(Raiz, linhas); break;
 
 		case 1: break;
 	}

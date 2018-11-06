@@ -3,13 +3,13 @@
 #include <string.h>
 #include "headers.h"
 
-Tipo_No * buscano(char *entrada,Tipo_No * no)
+void buscano(char *entrada,Tipo_No ** Raiz)
 {
-	if(no == NULL){return NULL;}
-	if(!strcmp(no->nome,entrada)){return no;}
+	if(*Raiz == NULL){return;}
+	if(!strcmp((*Raiz)->nome,entrada)){return;}
 
-	buscano(entrada, no->left);
-	buscano(entrada, no->right);
+	buscano(entrada, &((*Raiz)->left));
+	buscano(entrada, &((*Raiz)->right));
 }
 
 Tipo_No * criano()
@@ -18,30 +18,57 @@ Tipo_No * criano()
 	return no;
 }
 
-int conectno(Tipo_No * no, Tipo_No * Raiz, int linhas)
+int conectno(Tipo_No **Raiz, int linhas)
 {
-	Tipo_No *Aux;
+	Tipo_No *no = *Raiz;
+	char * entrada = (char*)calloc(10,sizeof(char));
+	char dado1[4];
+	char dado2[4];
+	char dado3[4];
 
-	char * entrada = (char*)calloc(1,sizeof(char));
-	if(no == Raiz)
+	for(int i = 0; i<linhas; i++)
 	{
-		Aux = no;
-		no->left = criano();
-		no->right = criano();
-		for(int j = 0; j<3; j++)
+		int j = 0;
+		fgets(entrada, 40, stdin);
+		for(j=0; j<3; j++)
 		{
-			scanf("%s", entrada);
-			strcpy(no->nome,entrada);
-			no = Aux;
-			if(j == 0){no = no->left;}
-			if(j == 1){no = no->right;}
+			dado1[j] = entrada[j];
+			dado2[j] = entrada[j+4];
+			dado3[j] = entrada[j+8];
+		}
+		
+		dado1[j] = '\n';
+		dado2[j] = '\n';
+		dado3[j] = '\n';
+
+		if(i == 0)
+		{
+			if(dado1[0] == 'N')
+			{
+				strcpy(no->nome, dado1);
+				no->left = criano();
+				strcpy(no->left->nome, dado2);
+			}else{
+				strcpy(no->nome, dado1);
+				no->left = criano();
+				strcpy(no->left->nome, dado2);
+				no->right = criano();
+				strcpy(no->right->nome, dado3);
+			}
+		}else{
+			buscano(dado1, Raiz);
+			no = *Raiz;
+			if(dado1[0] == 'N')
+			{
+				no->left = criano();
+				strcpy(no->left->nome, dado2);
+			}else{
+				no->left = criano();
+				strcpy(no->left->nome, dado2);
+				no->right = criano();
+				strcpy(no->right->nome, dado3);
+			}
 		}
 	}
-
-	for(int i = 1; i < linhas; i++)
-	{
-		scanf("%s",entrada);
-	}
-
 	return 0;
 }
