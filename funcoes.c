@@ -3,13 +3,13 @@
 #include <string.h>
 #include "headers.h"
 
-void buscano(char *entrada,Tipo_No ** Raiz)
+void buscano(char *dado,Tipo_No ** Raiz, Tipo_No **Aux)
 {
 	if(*Raiz == NULL){return;}
-	if(!strcmp((*Raiz)->nome,entrada)){return;}
+	if(!strcmp((*Raiz)->nome,dado)){*Aux = *Raiz; return;}
 
-	buscano(entrada, &((*Raiz)->left));
-	buscano(entrada, &((*Raiz)->right));
+	buscano(dado, &((*Raiz)->left), Aux);
+	buscano(dado, &((*Raiz)->right), Aux);
 }
 
 Tipo_No * criano()
@@ -18,17 +18,20 @@ Tipo_No * criano()
 	return no;
 }
 
-int conectno(Tipo_No **Raiz, int linhas)
+void conectno(Tipo_No **Raiz, int linhas)
 {
 	Tipo_No *no = *Raiz;
+	Tipo_No **Aux = (Tipo_No**)calloc(1,sizeof(Tipo_No*));
 	char * entrada = (char*)calloc(10,sizeof(char));
-	char dado1[4];
-	char dado2[4];
-	char dado3[4];
+	char *dado1 = (char*)calloc(1,sizeof(char));
+	char *dado2 = (char*)calloc(1,sizeof(char));
+	char *dado3 = (char*)calloc(1,sizeof(char));
+	int j = 0;
+	int i = 0;
 
-	for(int i = 0; i<linhas; i++)
+	for(i = 0; i<linhas; i++)
 	{
-		int j = 0;
+	    fflush(stdin);
 		fgets(entrada, 40, stdin);
 		for(j=0; j<3; j++)
 		{
@@ -36,7 +39,7 @@ int conectno(Tipo_No **Raiz, int linhas)
 			dado2[j] = entrada[j+4];
 			dado3[j] = entrada[j+8];
 		}
-		
+
 		dado1[j] = '\n';
 		dado2[j] = '\n';
 		dado3[j] = '\n';
@@ -56,8 +59,8 @@ int conectno(Tipo_No **Raiz, int linhas)
 				strcpy(no->right->nome, dado3);
 			}
 		}else{
-			buscano(dado1, Raiz);
-			no = *Raiz;
+			buscano(dado1, Raiz, Aux);
+			no = *Aux;
 			if(dado1[0] == 'N')
 			{
 				no->left = criano();
@@ -70,5 +73,49 @@ int conectno(Tipo_No **Raiz, int linhas)
 			}
 		}
 	}
-	return 0;
+	return;
 }
+
+void recebeentradas(Tipo_No **Raiz)
+{
+	if(*Raiz == NULL){return;}
+	if((*Raiz)->nome[0] == 'E'){scanf("%d",&((*Raiz)->res)); return;}
+
+	recebeentradas(&((*Raiz)->left));
+	recebeentradas(&((*Raiz)->right));
+}
+
+void fazoperacoes(Tipo_No **Raiz)
+{
+    if(*Raiz == NULL){return;}
+    if(*Raiz != NULL)
+    {
+        fazoperacoes(&((*Raiz)->left));
+        fazoperacoes(&((*Raiz)->right));
+
+        switch((*Raiz)->nome[0])
+        {
+            case 'A':(*Raiz)->res = (*Raiz)->left->res & (*Raiz)->right->res; break;
+
+            case 'O':(*Raiz)->res = (*Raiz)->left->res | (*Raiz)->right->res; break;
+
+            case 'D':(*Raiz)->res = !((*Raiz)->left->res & (*Raiz)->right->res); break;
+
+            case 'R':(*Raiz)->res = !((*Raiz)->left->res | (*Raiz)->right->res); break;
+
+            case 'X':(*Raiz)->res = (*Raiz)->left->res ^ (*Raiz)->right->res; break;
+
+            case 'N':(*Raiz)->res = !((*Raiz)->left->res); break;
+
+            case 'E': break;
+        }
+    }
+}
+
+void conectnorecursivo(Tipo_No **Raiz)
+{
+	
+}
+
+
+
