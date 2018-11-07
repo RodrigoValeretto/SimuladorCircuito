@@ -15,3 +15,5 @@ void conectno(Tipo_No **, int);
 void recebeentradas(Tipo_No **);
 
 void fazoperacoes(Tipo_No **);
+
+void conectnorecursivo(Tipo_No **);

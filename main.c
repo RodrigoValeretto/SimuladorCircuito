@@ -16,12 +16,12 @@ int main()
 	*Raiz = no;
 
 	scanf("%d",&conexao);
-	scanf("%d",&linhas);
 
 	switch(conexao)
 	{
 		case 0:
             {
+            	scanf("%d",&linhas);
 		        conectno(Raiz, linhas);
                 scanf("%d",&entradas);
                 for(i = 0; i < entradas; i++)
@@ -34,7 +34,11 @@ int main()
 		        break;
             }
 
-		case 1: break;
+		case 1:
+			{
+				conectnorecursivo(Raiz);
+				break;
+			}
 	}
     return 0;
 }

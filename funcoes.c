@@ -114,7 +114,22 @@ void fazoperacoes(Tipo_No **Raiz)
 
 void conectnorecursivo(Tipo_No **Raiz)
 {
-	
+    char entrada[4];
+
+    scanf("%s",entrada);
+	entrada[3] = '\n';
+
+
+    if(!strcmp(entrada,"\n") || !strcmp(entrada,"\0")){return;}
+	if(*Raiz == NULL){*Raiz = criano();}
+
+	strcpy((*Raiz)->nome,entrada);
+
+	if((*Raiz)->nome[0] == 'E'){return;}
+
+	conectnorecursivo(&((*Raiz)->left));
+	conectnorecursivo(&((*Raiz)->right));
+
 }
 
 
