@@ -128,7 +128,8 @@ void conectnorecursivo(Tipo_No **Raiz)
 	if((*Raiz)->nome[0] == 'E'){return;}
 
 	conectnorecursivo(&((*Raiz)->left));
-	conectnorecursivo(&((*Raiz)->right));
+	if((*Raiz)->nome[0] != 'N')
+	{conectnorecursivo(&((*Raiz)->right));}
 
 }
 

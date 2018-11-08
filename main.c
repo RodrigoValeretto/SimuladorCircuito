@@ -37,6 +37,13 @@ int main()
 		case 1:
 			{
 				conectnorecursivo(Raiz);
+                scanf("%d",&entradas);
+                for(i = 0; i < entradas; i++)
+                {
+                    recebeentradas(Raiz);
+                    fazoperacoes(Raiz);
+                    printf("%d\n",(*Raiz)->res);
+                }
 				break;
 			}
 	}
