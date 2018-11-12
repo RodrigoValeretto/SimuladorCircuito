@@ -47,5 +47,8 @@ int main()
 				break;
 			}
 	}
+	liberamemoria(Raiz);
+	free(Raiz);
+
     return 0;
 }

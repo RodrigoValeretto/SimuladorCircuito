@@ -12,6 +12,17 @@ void buscano(char *dado,Tipo_No ** Raiz, Tipo_No **Aux)
 	buscano(dado, &((*Raiz)->right), Aux);
 }
 
+void liberamemoria(Tipo_No **Raiz)
+{
+	if(*Raiz == NULL){return;}
+
+	liberamemoria(&((*Raiz)->left));
+	liberamemoria(&((*Raiz)->right));
+
+	free(*Raiz);
+	*Raiz = NULL;
+}
+
 Tipo_No * criano()
 {
 	Tipo_No * no = (Tipo_No*)calloc(1,sizeof(Tipo_No));
@@ -22,27 +33,23 @@ void conectno(Tipo_No **Raiz, int linhas)
 {
 	Tipo_No *no = *Raiz;
 	Tipo_No **Aux = (Tipo_No**)calloc(1,sizeof(Tipo_No*));
-	char * entrada = (char*)calloc(10,sizeof(char));
 	char *dado1 = (char*)calloc(1,sizeof(char));
 	char *dado2 = (char*)calloc(1,sizeof(char));
 	char *dado3 = (char*)calloc(1,sizeof(char));
-	int j = 0;
 	int i = 0;
 
 	for(i = 0; i<linhas; i++)
 	{
 	    fflush(stdin);
-		fgets(entrada, 40, stdin);
-		for(j=0; j<3; j++)
-		{
-			dado1[j] = entrada[j];
-			dado2[j] = entrada[j+4];
-			dado3[j] = entrada[j+8];
-		}
+	    scanf("%s", dado1);
+	    scanf("%s", dado2);
+	    if(dado1[0] != 'N')
+	    {scanf("%s", dado3);}
 
-		dado1[j] = '\n';
-		dado2[j] = '\n';
-		dado3[j] = '\n';
+		dado1[3] = '\n';
+		dado2[3] = '\n';
+		if(dado1[0] != 'N')
+		{dado3[3] = '\n';}
 
 		if(i == 0)
 		{

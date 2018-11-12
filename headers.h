@@ -8,6 +8,8 @@ typedef struct no
 
 void buscano(char *,Tipo_No **, Tipo_No **);
 
+void liberamemoria(Tipo_No **);
+
 Tipo_No * criano();
 
 void conectno(Tipo_No **, int);
