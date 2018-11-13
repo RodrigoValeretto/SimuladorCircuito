@@ -1,9 +1,9 @@
-typedef struct no
+typedef struct no 	//Struct principal usada em todo o programa
 {
-	struct no *right;
-	struct no *left;
-	char nome[4];
-	int res;
+	struct no *right;	//Nodo da direita
+	struct no *left;	//Nodo da esquerda
+	char nome[4];	//Nome do nodo
+	int res;	//Resultado contido nele
 }Tipo_No;
 
 void buscano(char *,Tipo_No **, Tipo_No **);
